@@ -7,6 +7,8 @@ COPY package*.json .
 
 RUN npm install
 
+RUN npx prisma migrate dev
+
 COPY . .
 
 RUN npm run build
@@ -17,6 +19,7 @@ FROM node:lts-alpine3.20 AS production
 WORKDIR /app
 
 COPY package*.json .
+
 
 RUN npm ci --only=production
 
