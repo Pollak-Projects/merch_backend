@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 const loginRouter = Router();
-
 const prisma = new PrismaClient();
 
 loginRouter.get("/login", async (req, res) => {
@@ -13,7 +12,7 @@ loginRouter.get("/login", async (req, res) => {
         name: "fdsgdfgdfg",
       },
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       console.log(err);
     });
   res.send("User logged in");
