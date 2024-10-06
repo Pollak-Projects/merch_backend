@@ -9,10 +9,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma generate
 RUN npm run build
-RUN npx prisma migrate deploy 
-RUN npx prisma migrate status
 
 #Production stage
 FROM node:lts-alpine3.20 AS production
