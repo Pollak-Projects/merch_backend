@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma generate
+
 RUN npm run build
 
 #Production stage
@@ -24,5 +24,5 @@ COPY package*.json .
 RUN npm ci --only=production
 
 COPY --from=build /app/dist ./dist
-
+RUN npx prisma generate
 CMD ["node", "dist/index.js"]
