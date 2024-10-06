@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "dev": "npx ts-node app/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf ./dist && tsc"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +21,9 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.4",
     "prisma": "^5.20.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2"
   }
 }
