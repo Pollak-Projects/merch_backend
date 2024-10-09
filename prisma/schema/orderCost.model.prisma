@@ -1,0 +1,7 @@
+model OrderCost {
+  id        String   @id @default(uuid())
+  orderId   String
+  delivery  Float
+  products_cost Float
+  total     Float
+}

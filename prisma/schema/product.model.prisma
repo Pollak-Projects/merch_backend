@@ -1,0 +1,11 @@
+model Product{
+    id          String   @id @default(uuid())
+    name        String
+    description String
+    price       Float
+    visible     Boolean
+    quantity    Int
+    minimumOrder Int
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now()) @updatedAt
+}
