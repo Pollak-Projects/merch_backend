@@ -1,10 +1,8 @@
 model Order {
-  id        String      @id @default(uuid())
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  status    String
-  total     Float
-  delivery  Float
-  items     OrderItem[]
-  userId    String
+  id         String      @id @default(uuid())
+  userId     Int
+  status     String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
 }

@@ -9,19 +9,28 @@ orderRouter.get("/order/:userId", async (req, res) => {
     where: {
       userId: userId,
     },
+    include: {
+      orderItems: true,
+    },
   });
   res.json(orders);
 });
 
 orderRouter.post("/order", async (req, res) => {
-  const { userId, itemIds, quantity } = req.body;
+  const { userId, items } = req.body; // items should be an array of { itemId, quantity }
   const order = await prisma.order.create({
     data: {
       userId: userId,
-      items: {
-        connect: itemIds.map((id: number) => ({ id: id })),
+      status: "PENDING",
+      orderItems: {
+        create: items.map((item: { itemId: string; quantity: number }) => ({
+          itemId: item.itemId,
+          quantity: item.quantity,
+        })),
       },
-      quantity: parseInt(quantity),
+    },
+    include: {
+      orderItems: true,
     },
   });
   res.json(order);
@@ -37,6 +46,9 @@ orderRouter.put("/order/:orderId", async (req, res) => {
     data: {
       status,
     },
+    include: {
+      orderItems: true,
+    },
   });
   res.json(order);
 });
@@ -46,6 +58,9 @@ orderRouter.delete("/order/:orderId", async (req, res) => {
   const order = await prisma.order.delete({
     where: {
       id: orderId,
+    },
+    include: {
+      orderItems: true,
     },
   });
   res.json(order);
