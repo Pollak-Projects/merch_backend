@@ -1,10 +1,10 @@
 model OrderItem {
-    id        Int      @id @default(autoincrement())
+    id        String   @id @default(uuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     quantity  Int
-    item      Item     @relation(fields: [itemId], references: [id])
-    itemId    Int
-    order     Order    @relation(fields: [orderId], references: [id])
-    orderId   Int
+    Item      Item?    @relation(fields: [itemId], references: [id])
+    itemId    String?
+    Order     Order?   @relation(fields: [orderId], references: [id])
+    orderId   String?
 }
