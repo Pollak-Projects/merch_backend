@@ -3,19 +3,19 @@ import dotenv from "dotenv";
 import authMiddleware from "./middleware/auth";
 import loginRouter from "./routes/login";
 import registerRouter from "./routes/register";
-
+import orderRouter from "./routes/order";
+import itemRouter from "./routes/item";
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
 
-app.use("/api", registerRouter);
-app.use("/api", loginRouter);
+app.use("/api", authMiddleware, registerRouter);
+app.use("/api", authMiddleware, loginRouter);
 
-app.get("/protected", authMiddleware, (req, res) => {
-  res.send("This is a protected route");
-});
+app.use("/api", authMiddleware, orderRouter);
+app.use("/api", authMiddleware, itemRouter);
 
 console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_USER:", process.env.DB_USER);

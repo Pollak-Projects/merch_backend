@@ -3,7 +3,7 @@ import { Router } from "express";
 const registerRouter = Router();
 
 registerRouter.post("/register", (req, res) => {
-  // Registration logic here
+  // send to different backend service
   res.send("User registered");
 });
 

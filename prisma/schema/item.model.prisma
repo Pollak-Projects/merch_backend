@@ -1,0 +1,9 @@
+model Item {
+    id          Int         @id @default(autoincrement())
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+    name        String
+    price       Float
+    maxQuantity Int
+    orders      OrderItem[]
+}
