@@ -7,7 +7,7 @@ orderRouter.get("/order/:userId", async (req, res) => {
   const { userId } = req.params;
   const orders = await prisma.order.findMany({
     where: {
-      userId: userId,
+      userId: userId, // userId is now a string
     },
     include: {
       orderItems: true,
@@ -20,7 +20,7 @@ orderRouter.post("/order", async (req, res) => {
   const { userId, items } = req.body; // items should be an array of { itemId, quantity }
   const order = await prisma.order.create({
     data: {
-      userId: userId,
+      userId: userId, // userId is now a string
       status: "PENDING",
       orderItems: {
         create: items.map((item: { itemId: string; quantity: number }) => ({
