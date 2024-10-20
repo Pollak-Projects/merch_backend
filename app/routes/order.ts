@@ -14,11 +14,11 @@ orderRouter.get("/order/:userId", async (req, res) => {
 });
 
 orderRouter.post("/order", async (req, res) => {
-  const { userId, productId, quantity } = req.body;
+  const { userId, itemId, quantity } = req.body;
   const order = await prisma.order.create({
     data: {
       userId: userId,
-      productId: parseInt(productId),
+      itemId: itemId,
       quantity: parseInt(quantity),
     },
   });
