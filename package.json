@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npx nodemon --exec npx ts-node app/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prismaUpdate": "prisma migrate dev && npx prisma generate",
     "build": "rimraf ./dist && tsc"
   },
   "keywords": [],
