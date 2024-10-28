@@ -1,5 +1,6 @@
-import express, { Express } from "express";
+import express, {Express, Router} from "express";
 import dotenv from "dotenv";
+import cookieParser from 'cookie-parser'
 import logger from "./logger/logger"
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express"
@@ -30,6 +31,7 @@ const options = {
 const openapiSpecification = swaggerJsdoc(options);
 
 app.use(express.json());
+app.use(cookieParser());
 
 /**
  * @openapi
@@ -46,16 +48,20 @@ app.get('/', async (req, res) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
-app.use("/api", authMiddleware, registerRouter);
-app.use("/api", authMiddleware, loginRouter);
+const apiRouter = Router()
 
-app.use("/api", authMiddleware, orderRouter);
-app.use("/api", authMiddleware, itemRouter);
+apiRouter.use(registerRouter)
+apiRouter.use(loginRouter)
+apiRouter.use(orderRouter)
+apiRouter.use(itemRouter)
 
-log.info("DB_HOST:", process.env.DB_HOST);
-log.info("DB_USER:", process.env.DB_USER);
-log.info("DB_PASSWORD:", process.env.DB_PASSWORD);
+app.use("/api", authMiddleware, apiRouter);
+
+log.info(`DB_HOST: ${process.env.DB_HOST}`);
+log.info(`DB_USER: ${process.env.DB_USER}`);
+log.info(`DB_PASSWORD: ${process.env.DB_PASSWORD}`);
+log.info(`Auth backend url: ${process.env.AUTH_BACKEND}`);
 
 app.listen(port, () => {
-  log.info(`[server]: Server is running at http://localhost:${port}`);
+  log.info(`Server is running at http://localhost:${port}`);
 });
